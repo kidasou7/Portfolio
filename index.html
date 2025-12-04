@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staractar - Next Gen Development</title>
+    <meta name="theme-color" content="#0a0e27">
+    <title>PineStructar - 次世代のシステム開発</title>
     
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Inter"', '"Noto Sans JP"', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', '"Noto Sans JP"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif'],
                     },
                     colors: {
                         brand: {
-                            black: '#111827',
-                            gray: '#F3F4F6',
-                            accent: '#10B981', // Emerald Green
+                            black: '#0a0e27',
+                            accent: '#10B981',
                             blue: '#3B82F6',
                         }
                     },
                     animation: {
-                        'grow-bar-vertical': 'growBarVertical 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow-pulse': 'glow-pulse 3s ease-in-out infinite',
                     },
                     keyframes: {
-                        growBarVertical: {
-                            '0%': { height: '0%' },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'glow-pulse': {
+                            '0%, 100%': { opacity: '0.5' },
+                            '50%': { opacity: '1' },
                         }
                     }
                 }
@@ -45,12 +49,117 @@
     </script>
 
     <style>
-        body {
-            background-color: #ffffff;
-            color: #111827;
-            -webkit-font-smoothing: antialiased;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        html { scroll-behavior: smooth; }
+        
+        html { 
+            scroll-behavior: smooth; 
+            background-color: #0a0e27;
+            background-image: linear-gradient(135deg, #0a0e27 0%, #0f1535 50%, #1a0f35 100%);
+            min-height: 100vh;
+            overscroll-behavior-y: none;
+        }
+
+        body {
+            background: transparent;
+            color: #f0f9ff;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            min-height: 100vh;
+            width: 100%;
+            overscroll-behavior-y: none;
+        }
+        
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Aurora Background Animation */
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .aurora-light {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+        }
+
+        .aurora-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%);
+            top: 10%;
+            left: 10%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .aurora-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+            top: 50%;
+            right: 10%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        .aurora-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+            bottom: 10%;
+            left: 50%;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #10B981 0%, #14B8A6 50%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Smooth Scroll */
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+
+        /* 選択状態のインジケーターの調整 */
+        .comparison-bar-item:focus-within .comparison-bar-indicator {
+            border-color: transparent;
+        }
+        .comparison-bar-item input:checked + .comparison-bar-indicator {
+            border-color: #10B981; /* brand-accent */
+        }
     </style>
 </head>
 <body>
@@ -60,11 +169,28 @@
         const { useState, useEffect, useRef } = React;
 
         const Icon = ({ name, size = 24, className }) => {
-            useEffect(() => { lucide.createIcons(); }, [name]);
-            return <i data-lucide={name} width={size} height={size} className={className}></i>;
+            useEffect(() => { 
+                if (window.lucide) {
+                    window.lucide.createIcons(); 
+                }
+            }, [name]);
+
+            return <i data-lucide={name} style={{ width: size, height: size }} className={className}></i>;
         };
 
-        const FadeIn = ({ children, delay = 0 }) => {
+        const Code2 = (props) => <Icon name="code-2" {...props} />;
+        const ArrowRight = (props) => <Icon name="arrow-right" {...props} />;
+        const Smartphone = (props) => <Icon name="smartphone" {...props} />;
+        const Cpu = (props) => <Icon name="cpu" {...props} />;
+        const Globe = (props) => <Icon name="globe" {...props} />;
+        const TrendingDown = (props) => <Icon name="trending-down" {...props} />;
+        const User = (props) => <Icon name="user" {...props} />;
+        const Mail = (props) => <Icon name="mail" {...props} />;
+        const MessageSquare = (props) => <Icon name="message-square" {...props} />;
+        const Video = (props) => <Icon name="video" {...props} />;
+
+
+        const FadeInUp = ({ children, delay = 0 }) => {
             const [isVisible, setIsVisible] = useState(false);
             const ref = useRef(null);
 
@@ -83,13 +209,16 @@
             }, []);
 
             return (
-                <div ref={ref} className={`transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: `${delay}ms` }}>
+                <div 
+                    ref={ref} 
+                    className={`transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} 
+                    style={{ transitionDelay: `${delay}ms` }}
+                >
                     {children}
                 </div>
             );
         };
 
-        // Single Comparison Card Component
         const ComparisonCard = ({ title, standardPrice, createPrice, standardHeight, createHeight, delay, isCenter }) => {
             const [isVisible, setIsVisible] = useState(false);
             const ref = useRef(null);
@@ -104,273 +233,323 @@
                     { threshold: 0.3 }
                 );
                 if (ref.current) observer.observe(ref.current);
+                return () => observer.disconnect();
             }, []);
 
             return (
-                <div ref={ref} className={`bg-white rounded-3xl p-6 border ${isCenter ? 'border-emerald-400 shadow-xl scale-105 z-10' : 'border-gray-200 shadow-sm'} flex flex-col items-center justify-between h-[360px] w-full transition-all duration-500`}>
-                    <h4 className="text-sm font-bold text-gray-500 mb-6">{title}</h4>
+                <div ref={ref} className={`glass-card rounded-3xl p-8 flex flex-col items-center justify-between h-[420px] w-full transition-all duration-500 ${isCenter ? 'border-emerald-500/50 shadow-[0_0_30px_rgba(16,185,129,0.3)] scale-105 z-10 bg-white/10' : ''}`}>
+                    <h4 className="text-sm font-bold text-emerald-400 mb-8 uppercase tracking-widest">{title}</h4>
                     
-                    <div className="flex justify-center items-end gap-4 h-full w-full px-2 pb-2">
+                    <div className="flex justify-center items-end gap-6 h-full w-full px-4 pb-4">
                         {/* Standard Bar */}
                         <div className="flex flex-col items-center justify-end h-full w-1/2 group">
-                            <span className={`block text-xs font-bold text-gray-400 mb-2 transition-all duration-1000 delay-[${delay}ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                            <span className={`block text-xs font-bold text-gray-400 mb-3 transition-all duration-1000`}
+                                  style={{ transitionDelay: `${delay}ms`, opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(1rem)' }}>
                                 {standardPrice}
                             </span>
                             <div className="w-full relative flex justify-center items-end h-full">
                                 <div 
-                                    className="w-full rounded-t-lg bg-gray-300 transition-all duration-1000"
+                                    className="w-full rounded-t-lg bg-white/10 backdrop-blur-sm transition-all duration-1000 border border-white/5"
                                     style={{ 
                                         height: isVisible ? standardHeight : '0%',
                                         transitionDelay: `${delay}ms`
                                     }}
                                 ></div>
                             </div>
-                            <span className="mt-2 text-[10px] text-gray-400 font-bold">他社相場</span>
+                            <span className="mt-4 text-[10px] text-gray-500 font-bold uppercase tracking-widest">市場価格</span>
                         </div>
 
-                        {/* CreateApp Bar */}
+                        {/* PineStructar Bar */}
                         <div className="flex flex-col items-center justify-end h-full w-1/2 group">
-                            <span className={`block text-sm font-extrabold text-brand-accent mb-2 transition-all duration-1000 delay-[${delay + 200}ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                            <span className={`block text-lg font-extrabold text-emerald-400 mb-3 transition-all duration-1000`}
+                                  style={{ transitionDelay: `${delay + 200}ms`, opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(1rem)' }}>
                                 {createPrice}
                             </span>
                             <div className="w-full relative flex justify-center items-end h-full">
                                 <div 
-                                    className="w-full rounded-t-lg bg-gradient-to-t from-emerald-500 to-teal-400 shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-1000"
+                                    className="w-full rounded-t-lg bg-brand-accent transition-all duration-1000 shadow-[0_0_15px_rgba(16,185,129,0.5)]"
                                     style={{ 
                                         height: isVisible ? createHeight : '0%',
                                         transitionDelay: `${delay + 200}ms`
                                     }}
                                 ></div>
                             </div>
-                            <span className="mt-2 text-[10px] font-bold text-brand-black">Staractar</span>
+                            <span className="mt-4 text-[10px] text-emerald-400 font-bold uppercase tracking-widest">PineStructar</span>
                         </div>
                     </div>
                 </div>
             );
         };
 
-        const WhyMe = () => {
+        const FeatureCard = ({ icon, title, description, delay }) => (
+            <FadeInUp delay={delay}>
+                <div className="glass-card p-6 rounded-xl h-full flex flex-col items-start space-y-4 hover:scale-[1.02] transition-transform duration-300">
+                    <Icon name={icon} size={32} className="text-brand-accent" />
+                    <h3 className="text-xl font-heading font-semibold text-white">{title}</h3>
+                    <p className="text-gray-400 text-sm">{description}</p>
+                </div>
+            </FadeInUp>
+        );
+
+        const ComparisonBar = ({ name, options, selected, onChange }) => {
             return (
-                <section className="py-24 px-6 bg-gray-50 overflow-hidden">
-                    <div className="max-w-6xl mx-auto text-center">
-                        <FadeIn>
-                            <h2 className="text-3xl font-bold mb-4">Why Staractar?</h2>
-                            <p className="text-gray-500 mb-12">徹底した効率化フローにより、バグの少ない高品質な成果物を、<br className="hidden md:block"/>相場よりも低コスト・短納期で納品。</p>
-                        </FadeIn>
-                        
-                        {/* 3 Cards Container */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 items-end">
-                            {/* Case 1: MVP */}
-                            <FadeIn delay={0}>
-                                <ComparisonCard 
-                                    title="Case 1: マッチングアプリMVP"
-                                    standardPrice="¥300万"
-                                    createPrice="¥120万"
-                                    standardHeight="40%"
-                                    createHeight="16%"
-                                    delay={0}
-                                />
-                            </FadeIn>
-
-                            {/* Case 2: Business System (Center Highlight) */}
-                            <FadeIn delay={200}>
-                                <ComparisonCard 
-                                    title="Case 2: 業務基幹システム"
-                                    standardPrice="¥1,200万"
-                                    createPrice="¥380万"
-                                    standardHeight="100%"
-                                    createHeight="32%"
-                                    delay={200}
-                                    isCenter={true}
-                                />
-                            </FadeIn>
-
-                            {/* Case 3: Media Site */}
-                            <FadeIn delay={400}>
-                                <ComparisonCard 
-                                    title="Case 3: メディアサイト構築"
-                                    standardPrice="¥500万"
-                                    createPrice="¥180万"
-                                    standardHeight="60%"
-                                    createHeight="22%"
-                                    delay={400}
-                                />
-                            </FadeIn>
-                        </div>
-
-                        <div className="mt-12 bg-white p-6 rounded-2xl border border-gray-200 inline-flex items-center gap-4 shadow-sm max-w-2xl">
-                            <div className="bg-emerald-100 p-3 rounded-full text-brand-accent shrink-0">
-                                <Icon name="trending-down" size={24} />
-                            </div>
-                            <div className="text-left text-sm text-gray-600">
-                                <span className="font-bold text-gray-800 text-lg">平均 60% のコストダウン</span><br/>
-                                他社が見積もり作成や人員確保に時間をかけている間に、Staractarは即座にプロトタイプを作成し、開発に着手。中間マージンや管理コストを極限まで省くことで、この価格差を実現しています。
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <div className="flex justify-center space-x-4 p-2 glass-panel rounded-full w-full max-w-md mx-auto comparison-bar">
+                    {options.map((option) => (
+                        <label key={option.value} className="relative flex-1 cursor-pointer comparison-bar-item">
+                            <input
+                                type="radio"
+                                name={name}
+                                value={option.value}
+                                checked={selected === option.value}
+                                onChange={() => onChange(option.value)}
+                                className="sr-only peer"
+                            />
+                            <span className="block text-center py-2 px-4 rounded-full text-sm font-medium transition-colors duration-300 peer-checked:bg-brand-accent peer-checked:text-brand-black peer-checked:font-bold hover:bg-white/10">
+                                {option.label}
+                            </span>
+                            <span className="comparison-bar-indicator absolute inset-0 rounded-full border-2 border-transparent transition-all duration-300 pointer-events-none"></span>
+                        </label>
+                    ))}
+                </div>
             );
         };
 
-        // --- Other Sections (Hero, Services, TechStack, Contact, Footer) ---
-        // Same as previous version, re-included for single file usage
+        const App = () => {
+            const [selectedTab, setSelectedTab] = useState('web');
 
-        const Hero = () => (
-            <section className="min-h-[85vh] flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-100 via-white to-white -z-10"></div>
-                <FadeIn>
-                    <span className="inline-block py-1 px-3 rounded-full bg-gray-100 border border-gray-200 text-xs font-bold text-gray-600 mb-6 tracking-wider">
-                        ENGINEER PROFILE
-                    </span>
-                    <h1 className="text-4xl md:text-6xl font-extrabold text-brand-black tracking-tight leading-[1.2] mb-6">
-                        「速さ」と「品質」を両立する、<br/>
-                        次世代の開発スタンダード。
-                    </h1>
-                    <p className="text-gray-500 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
-                        最新の開発技術導入により、従来の無駄な工数を徹底削減。<br className="hidden md:block"/>
-                        高コストパフォーマンスで、ビジネスを加速させるアプリ・システムを構築します。
-                    </p>
-                    <a href="#contact" className="group inline-flex items-center gap-2 bg-brand-black text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-gray-800 transition-all hover:scale-105 shadow-xl">
-                        無料相談はこちら
-                        <Icon name="arrow-right" size={18} className="group-hover:translate-x-1 transition-transform" />
-                    </a>
-                </FadeIn>
-            </section>
-        );
+            // 修正: ヘッダー中央メニューから「お問い合わせ」を削除
+            // 修正: 「コスト」の遷移先を新しいIDに変更
+            const navItems = [
+                { label: 'コスト', href: '#コスト削減の仕組み' },
+                { label: '特徴', href: '#特徴' },
+            ];
 
-        const Services = () => (
-            <section className="py-24 px-6 bg-white">
-                <div className="max-w-6xl mx-auto">
-                    <FadeIn>
-                        <h2 className="text-3xl font-bold text-center mb-16">Services</h2>
-                    </FadeIn>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <FadeIn delay={100}>
-                            <div className="bg-white border border-gray-200 p-8 rounded-3xl h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                                <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                    <Icon name="smartphone" size={28} />
-                                </div>
-                                <h3 className="text-xl font-bold mb-3">スマートフォンアプリ開発</h3>
-                                <p className="text-gray-500 text-sm leading-relaxed">
-                                    新規事業・検証用に最適。iOS (SwiftUI) / クロスプラットフォーム (Flutter) 対応。スピーディーにMVPを構築します。
-                                </p>
-                            </div>
-                        </FadeIn>
-                        <FadeIn delay={200}>
-                            <div className="bg-white border border-gray-200 p-8 rounded-3xl h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                                <div className="w-14 h-14 bg-emerald-50 text-brand-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                    <Icon name="settings" size={28} />
-                                </div>
-                                <h3 className="text-xl font-bold mb-3">業務効率化・自動化</h3>
-                                <p className="text-gray-500 text-sm leading-relaxed">
-                                    Google AppSheetによる日報・勤怠アプリ構築や、GAS/Pythonを用いた事務作業の自動化。サーバー費用を抑えた高対費用効果なツールを導入。
-                                </p>
-                            </div>
-                        </FadeIn>
-                        <FadeIn delay={300}>
-                            <div className="bg-white border border-gray-200 p-8 rounded-3xl h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                                <div className="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                    <Icon name="globe" size={28} />
-                                </div>
-                                <h3 className="text-xl font-bold mb-3">Webシステム・サイト構築</h3>
-                                <p className="text-gray-500 text-sm leading-relaxed">
-                                    デザインデータからのコーディング、WordPress/SWELLを用いたCMS構築・改修。運用しやすく拡張性の高いWebサイトを提供します。
-                                </p>
-                            </div>
-                        </FadeIn>
-                    </div>
-                </div>
-            </section>
-        );
+            const comparisonOptions = [
+                { value: 'web', label: 'Web開発' },
+                { value: 'app', label: 'アプリ開発' },
+                { value: 'system', label: 'システム開発' },
+            ];
 
-        const TechStack = () => {
-            const stacks = [
-                { category: "Languages", items: ["Swift", "Python", "Dart", "TypeScript", "GAS"] },
-                { category: "Frameworks", items: ["SwiftUI", "Flutter", "Next.js"] },
-                { category: "Cloud & DB", items: ["Supabase", "Firebase"] },
-                { category: "CMS", items: ["WordPress", "WooCommerce"] },
+            const comparisonData = {
+                web: [
+                    { title: 'ランディングページ', standardPrice: '¥500,000', createPrice: '¥150,000', standardHeight: '70%', createHeight: '21%' },
+                    { title: 'ECサイト構築', standardPrice: '¥3,000,000', createPrice: '¥900,000', standardHeight: '90%', createHeight: '27%', isCenter: true },
+                    { title: 'カスタムCMS', standardPrice: '¥8,000,000', createPrice: '¥2,400,000', standardHeight: '100%', createHeight: '30%' },
+                ],
+                app: [
+                    { title: 'シンプルユーティリティ', standardPrice: '¥1,500,000', createPrice: '¥450,000', standardHeight: '60%', createHeight: '18%' },
+                    { title: 'ソーシャルアプリ', standardPrice: '¥10,000,000', createPrice: '¥3,000,000', standardHeight: '95%', createHeight: '28.5%', isCenter: true },
+                    { title: 'エンタープライズツール', standardPrice: '¥15,000,000', createPrice: '¥4,500,000', standardHeight: '100%', createHeight: '30%' },
+                ],
+                system: [
+                    { title: 'データ連携システム', standardPrice: '¥2,000,000', createPrice: '¥600,000', standardHeight: '75%', createHeight: '22.5%' },
+                    { title: '業務効率化ツール', standardPrice: '¥5,000,000', createPrice: '¥1,500,000', standardHeight: '90%', createHeight: '27%', isCenter: true },
+                    { title: '大規模データ分析基盤', standardPrice: '¥12,000,000', createPrice: '¥3,600,000', standardHeight: '100%', createHeight: '30%' },
+                ],
+            };
+
+            const features = [
+                { icon: 'code-2', title: '高品質なコード設計', description: '最新の技術スタックと設計パターンに基づき、保守性と拡張性の高いクリーンなコードを提供します。' },
+                { icon: 'smartphone', title: 'マルチプラットフォーム対応', description: 'Web、モバイル、デスクトップ向けに最適化されたシステムをワンソースで構築可能です。' },
+                { icon: 'cpu', title: 'モダンなシステム構築', description: 'クラウドネイティブなアプローチで、スケーラブルで堅牢なインフラストラクチャを構築します。' },
+                { icon: 'globe', title: '迅速なデプロイメント', description: 'CI/CDパイプラインを構築し、開発から公開までのプロセスを自動化・高速化します。' },
+                { icon: 'trending-down', title: 'コスト効率の最大化', description: '無駄を省いた開発プロセスにより、従来の開発手法よりも大幅にコストを抑えます。' },
+                { icon: 'video', title: 'インタラクティブな試作', description: 'アイデアをすぐに動くプロトタイプに変換し、早期のフィードバックと改善を実現します。' },
             ];
 
             return (
-                <section className="py-20 px-6 bg-gray-50 border-y border-gray-100">
-                    <div className="max-w-5xl mx-auto">
-                        <FadeIn>
-                            <h2 className="text-2xl font-bold text-center mb-12 flex items-center justify-center gap-2">
-                                <Icon name="cpu" size={24} className="text-gray-400"/> Supported Technologies
-                            </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                {stacks.map((stack, idx) => (
-                                    <div key={idx} className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-                                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">{stack.category}</h4>
-                                        <div className="flex flex-wrap gap-2">
-                                            {stack.items.map((item) => (
-                                                <span key={item} className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-semibold border border-gray-200">
-                                                    {item}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </FadeIn>
+                <div className="relative min-h-screen">
+                    {/* Aurora Background */}
+                    <div className="aurora-bg">
+                        <div className="aurora-light aurora-1"></div>
+                        <div className="aurora-light aurora-2"></div>
+                        <div className="aurora-light aurora-3"></div>
                     </div>
-                </section>
-            );
-        };
 
-        const Contact = () => (
-            <section id="contact" className="py-24 px-6 bg-brand-black text-white relative">
-                <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                <div className="max-w-3xl mx-auto text-center relative z-10">
-                    <FadeIn>
-                        <div className="w-20 h-20 bg-gray-800 rounded-full mx-auto flex items-center justify-center mb-6 border-2 border-gray-700">
-                            <Icon name="user" size={32} className="text-white"/>
+                    {/* Header */}
+                    <header className="sticky top-0 z-50 glass-panel backdrop-blur-xl bg-brand-black/80">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                            <a href="#" className="text-2xl font-heading font-bold text-white">PineStructar<span className="text-brand-accent">.</span></a>
+                            <nav className="hidden md:flex space-x-8">
+                                {navItems.map((item) => (
+                                    <a key={item.label} href={item.href} className="text-gray-300 hover:text-brand-accent transition-colors duration-200 font-medium">
+                                        {item.label}
+                                    </a>
+                                ))}
+                            </nav>
+                            <a href="#お問い合わせ" className="hidden md:block bg-brand-accent text-brand-black font-bold py-2 px-5 rounded-full hover:bg-emerald-300 transition-colors duration-200 shadow-lg shadow-brand-accent/30">
+                                お問い合わせ
+                            </a>
                         </div>
-                        <h2 className="text-3xl font-bold mb-2">Staractar</h2>
-                        <p className="text-gray-400 text-sm mb-8 font-mono">Freelance Engineer</p>
-                        
-                        <p className="text-gray-300 leading-8 mb-10 text-base md:text-lg">
-                            「予算は限られているが、しっかり動くアプリが欲しい」<br/>
-                            「手作業を自動化してミスを無くしたい」<br/><br/>
-                            そんな経営者様・クライアント様の課題を、<br/>
-                            技術の力で最短ルートで解決いたします。
-                        </p>
+                    </header>
 
-                        <div className="inline-flex flex-col gap-4 w-full max-w-md">
-                            <button className="bg-brand-accent text-white font-bold py-4 px-8 rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:bg-emerald-400 transition-colors flex items-center justify-center gap-3">
-                                <Icon name="mail" />
-                                お問い合わせ・無料相談
-                            </button>
-                            <div className="flex justify-center gap-4 text-xs text-gray-500">
-                                <span className="flex items-center gap-1"><Icon name="message-square" size={14}/> Chatwork</span>
-                                <span className="flex items-center gap-1"><Icon name="hash" size={14}/> Slack</span>
-                                <span className="flex items-center gap-1"><Icon name="video" size={14}/> Zoom</span>
+                    <main className="relative z-10">
+                        {/* Hero Section */}
+                        <section className="pt-24 pb-32 text-center max-w-4xl mx-auto px-4">
+                            <FadeInUp delay={0}>
+                                <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-extrabold leading-tight mb-6">
+                                    <span className="text-gradient">次世代の</span>システム開発、<br className="hidden sm:inline"/>
+                                    <span className="text-white">確かな技術で実現。</span>
+                                </h1>
+                            </FadeInUp>
+                            <FadeInUp delay={200}>
+                                <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                                    PineStructarは、最新の技術と効率的な開発手法を駆使し、Web、モバイル、システムソリューションを驚異的なスピードとコスト効率で構築します。
+                                </p>
+                            </FadeInUp>
+                        </section>
+
+                        {/* Cost Performance Section (Text description) */}
+                        <section id="コストパフォーマンス" className="py-20">
+                            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                                <FadeInUp delay={0}>
+                                    <h2 className="text-4xl font-heading font-bold mb-8">
+                                        <span className="text-gradient">なぜ、高品質なのに</span>適正価格なのか？
+                                    </h2>
+                                </FadeInUp>
+                                <FadeInUp delay={100}>
+                                    <div className="text-left text-gray-300 space-y-6 text-lg glass-panel p-8 rounded-2xl">
+                                        <p className="text-xl font-semibold text-white">
+                                            「技術」以外のコストを、すべて削ぎ落としました。
+                                        </p>
+                                        <p>
+                                            アプリ開発の費用が高額になる理由をご存知ですか？
+                                            一般的な制作会社の見積もりの約60%は、開発に直接関わらない「販管費（営業マンの人件費、立派なオフィス代、管理コスト）」だと言われています。
+                                        </p>
+                                        <p className="text-xl font-semibold text-brand-accent">
+                                            PineStructarは、エンジニア直営の「開発ラボ」です。
+                                        </p>
+                                        <p>
+                                            間に立つ営業担当も、無駄な会議も、豪華なオフィスもありません。
+                                            私たちがいただく費用のすべては、あなたのアプリの「品質」と「機能」だけに還元されます。
+                                        </p>
+                                        <ul className="list-disc list-inside space-y-2 pl-4 text-gray-400">
+                                            <li><strong className="text-white">No Middleman:</strong> 営業・ディレクターを挟まず、開発者が直接ヒアリング。</li>
+                                            <li><strong className="text-white">No Hidden Cost:</strong> 開発に関係のない固定費を徹底的にカット。</li>
+                                            <li><strong className="text-white">Direct Engineering:</strong> 投資した予算が、そのままコードの品質になります。</li>
+                                        </ul>
+                                    </div>
+                                </FadeInUp>
                             </div>
-                            <p className="text-xs text-gray-600 mt-2">
-                                稼働: 週30〜40時間（平日日中も連絡可能）
-                            </p>
+                        </section>
+
+                        {/* Comparison Section (Renamed & ID changed) */}
+                        <section id="コスト削減の仕組み" className="py-20">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <FadeInUp delay={0}>
+                                    {/* 修正: タイトルを短く変更 */}
+                                    <h2 className="text-4xl font-heading font-bold text-center mb-4">
+                                        <span className="text-gradient">コスト削減の</span>仕組み
+                                    </h2>
+                                </FadeInUp>
+                                <FadeInUp delay={100}>
+                                    <p className="text-center text-gray-400 mb-16 max-w-xl mx-auto">
+                                        無駄を徹底的に省いた開発プロセスにより、従来の開発手法よりも大幅にコストを抑えることが可能です。
+                                    </p>
+                                </FadeInUp>
+
+                                <FadeInUp delay={200}>
+                                    <ComparisonBar 
+                                        name="comparison-tab"
+                                        options={comparisonOptions}
+                                        selected={selectedTab}
+                                        onChange={setSelectedTab}
+                                    />
+                                </FadeInUp>
+
+                                <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-end">
+                                    {comparisonData[selectedTab].map((data, index) => (
+                                        <FadeInUp key={data.title} delay={300 + index * 150}>
+                                            <ComparisonCard 
+                                                title={data.title}
+                                                standardPrice={data.standardPrice}
+                                                createPrice={data.createPrice}
+                                                standardHeight={data.standardHeight}
+                                                createHeight={data.createHeight}
+                                                delay={500}
+                                                isCenter={data.isCenter}
+                                            />
+                                        </FadeInUp>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Features Section */}
+                        <section id="特徴" className="py-20">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <FadeInUp delay={0}>
+                                    <h2 className="text-4xl font-heading font-bold text-center mb-4">
+                                        <span className="text-gradient">PineStructarの</span>強み
+                                    </h2>
+                                </FadeInUp>
+                                <FadeInUp delay={100}>
+                                    <p className="text-center text-gray-400 mb-16 max-w-xl mx-auto">
+                                        開発プロセスを革新する、私たちPineStructarの主要な強みをご覧ください。
+                                    </p>
+                                </FadeInUp>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    {features.map((feature, index) => (
+                                        <FeatureCard 
+                                            key={feature.title}
+                                            icon={feature.icon}
+                                            title={feature.title}
+                                            description={feature.description}
+                                            delay={200 + index * 100}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Contact Section */}
+                        <section id="お問い合わせ" className="py-20">
+                            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <FadeInUp delay={0}>
+                                    <h2 className="text-4xl font-heading font-bold text-center mb-4">
+                                        <span className="text-gradient">プロジェクトの</span>ご相談
+                                    </h2>
+                                </FadeInUp>
+                                <FadeInUp delay={100}>
+                                    <p className="text-center text-gray-400 mb-12 max-w-xl mx-auto">
+                                        プロジェクトのアイデアをお聞かせください。迅速に対応いたします。
+                                    </p>
+                                </FadeInUp>
+
+                                <FadeInUp delay={200}>
+                                    <form className="glass-panel p-8 rounded-2xl space-y-6">
+                                        <div className="relative">
+                                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
+                                            <input type="text" placeholder="お名前" className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-colors duration-200" />
+                                        </div>
+                                        <div className="relative">
+                                            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
+                                            <input type="email" placeholder="メールアドレス" className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-colors duration-200" />
+                                        </div>
+                                        <div className="relative">
+                                            <MessageSquare className="absolute left-3 top-4 text-gray-500" size={20} />
+                                            <textarea placeholder="プロジェクトの詳細" rows="5" className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-colors duration-200"></textarea>
+                                        </div>
+                                        <button type="submit" className="w-full bg-brand-accent text-brand-black font-bold text-lg py-3 rounded-full hover:bg-emerald-300 transition-colors duration-300 shadow-xl shadow-brand-accent/40 transform hover:scale-[1.01]">
+                                            送信
+                                        </button>
+                                    </form>
+                                </FadeInUp>
+                            </div>
+                        </section>
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="py-10 border-t border-white/10 mt-20">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                            <p className="text-gray-500 text-sm">&copy; {new Date().getFullYear()} PineStructar. All rights reserved.</p>
+                            <div className="mt-4 space-x-4">
+                                <a href="#" className="text-gray-500 hover:text-brand-accent text-sm">プライバシーポリシー</a>
+                                <a href="#" className="text-gray-500 hover:text-brand-accent text-sm">利用規約</a>
+                            </div>
                         </div>
-                    </FadeIn>
-                </div>
-            </section>
-        );
-
-        const Footer = () => (
-            <footer className="bg-white py-8 border-t border-gray-200 text-center">
-                <p className="text-xs text-gray-400 font-medium">© 2024 Staractar. All rights reserved.</p>
-            </footer>
-        );
-
-        const App = () => {
-            return (
-                <div className="antialiased">
-                    <Hero />
-                    <Services />
-                    <TechStack />
-                    <WhyMe />
-                    <Contact />
-                    <Footer />
+                    </footer>
                 </div>
             );
         };
