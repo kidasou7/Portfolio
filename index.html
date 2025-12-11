@@ -346,14 +346,53 @@
                 ],
             };
 
-            const features = [
-                { icon: 'code-2', title: '高品質なコード設計', description: '最新の技術スタックと設計パターンに基づき、保守性と拡張性の高いクリーンなコードを提供します。' },
-                { icon: 'smartphone', title: 'マルチプラットフォーム対応', description: 'Web、モバイル、デスクトップ向けに最適化されたシステムをワンソースで構築可能です。' },
-                { icon: 'cpu', title: 'モダンなシステム構築', description: 'クラウドネイティブなアプローチで、スケーラブルで堅牢なインフラストラクチャを構築します。' },
-                { icon: 'globe', title: '迅速なデプロイメント', description: 'CI/CDパイプラインを構築し、開発から公開までのプロセスを自動化・高速化します。' },
-                { icon: 'trending-down', title: 'コスト効率の最大化', description: '無駄を省いた開発プロセスにより、従来の開発手法よりも大幅にコストを抑えます。' },
-                { icon: 'video', title: 'インタラクティブな試作', description: 'アイデアをすぐに動くプロトタイプに変換し、早期のフィードバックと改善を実現します。' },
-            ];
+              const features = [
+                  { icon: 'code-2', title: '高品質なコード設計', description: '最新の技術スタックと設計パターンに基づき、保守性と拡張性の高いクリーンなコードを提供します。' },
+                  { icon: 'smartphone', title: 'マルチプラットフォーム対応', description: 'Web、モバイル、デスクトップ向けに最適化されたシステムをワンソースで構築可能です。' },
+                  { icon: 'cpu', title: 'モダンなシステム構築', description: 'クラウドネイティブなアプローチで、スケーラブルで堅牢なインフラストラクチャを構築します。' },
+                  { icon: 'globe', title: '迅速なデプロイメント', description: 'CI/CDパイプラインを構築し、開発から公開までのプロセスを自動化・高速化します。' },
+                  { icon: 'trending-down', title: 'コスト効率の最大化', description: '無駄を省いた開発プロセスにより、従来の開発手法よりも大幅にコストを抑えます。' },
+                  { icon: 'video', title: 'インタラクティブな試作', description: 'アイデアをすぐに動くプロトタイプに変換し、早期のフィードバックと改善を実現します。' },
+              ];
+
+              const serviceItems = [
+                  {
+                      icon: 'smartphone',
+                      title: 'スマホアプリ開発',
+                      description:
+                          'SwiftUIとFlutterを用いたネイティブ/クロスプラットフォーム開発。新規事業の検証やPoCも高速に形にします。',
+                  },
+                  {
+                      icon: 'cpu',
+                      title: '業務効率化・自動化',
+                      description:
+                          'Google AppSheetやGASで日報・勤怠・在庫管理を即構築。Python連携やAPI連携までワンストップで自動化。',
+                  },
+                  {
+                      icon: 'globe',
+                      title: 'Webサイト/システム構築',
+                      description:
+                          'Next.jsなどモダン環境でスケールするWebシステムを構築。WordPress/SWELL改修やEC拡張も対応。',
+                  },
+              ];
+
+              const deliveryValues = [
+                  {
+                      icon: 'user',
+                      title: 'エンジニア直通の安心体制',
+                      description: 'ヒアリングから実装まで一貫対応。余計な中間コストを排除し、認識ズレを防ぎます。',
+                  },
+                  {
+                      icon: 'message-square',
+                      title: '要件定義から並走',
+                      description: '要件が固まっていない段階でも相談可。チャットベースで迅速に意思疎通し、最短ルートで決定。',
+                  },
+                  {
+                      icon: 'video',
+                      title: 'プロトタイプで即検証',
+                      description: '試作・デモを素早く提示し、意思決定を支援。スピードと品質を両立した開発フローです。',
+                  },
+              ];
 
             return (
                 <div className="relative min-h-screen">
@@ -492,19 +531,72 @@
                                     </p>
                                 </FadeInUp>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    {features.map((feature, index) => (
-                                        <FeatureCard 
-                                            key={feature.title}
-                                            icon={feature.icon}
+                              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                  {features.map((feature, index) => (
+                                      <FeatureCard
+                                          key={feature.title}
+                                          icon={feature.icon}
                                             title={feature.title}
                                             description={feature.description}
                                             delay={200 + index * 100}
                                         />
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
+                                  ))}
+                              </div>
+                          </div>
+                      </section>
+
+                      {/* Services Section */}
+                      <section className="py-20">
+                          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                              <FadeInUp delay={0}>
+                                  <h2 className="text-4xl font-heading font-bold text-center mb-4">
+                                      <span className="text-gradient">対応業務</span>と強み
+                                  </h2>
+                              </FadeInUp>
+                              <FadeInUp delay={100}>
+                                  <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
+                                      クラウドワークスで評価いただいている実績を基に、アプリ開発・自動化・Webシステムまでワンストップで支援します。
+                                  </p>
+                              </FadeInUp>
+
+                              <FadeInUp delay={150}>
+                                  <div className="glass-panel rounded-2xl p-6 mb-10 text-sm text-gray-300">
+                                      <p className="font-heading text-lg text-white mb-2">今回の更新ポイント</p>
+                                      <ul className="list-disc list-inside space-y-1">
+                                          <li>クラウドワークスの自己紹介内容を反映し、<span className="text-white font-semibold">「対応業務と強み」</span>セクションを追加</li>
+                                          <li>スマホアプリ開発・業務自動化・Web/WordPress構築の具体的な提供価値を明文化</li>
+                                          <li>週30〜40時間の稼働体制やエンジニア直通対応など、取引時の安心材料を強調</li>
+                                      </ul>
+                                  </div>
+                              </FadeInUp>
+
+                              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                  {serviceItems.map((service, index) => (
+                                      <FeatureCard
+                                          key={service.title}
+                                          icon={service.icon}
+                                          title={service.title}
+                                          description={service.description}
+                                          delay={150 + index * 100}
+                                      />
+                                  ))}
+                              </div>
+
+                              <div className="mt-12 glass-panel rounded-2xl p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                                  {deliveryValues.map((value, index) => (
+                                      <div key={value.title} className="flex flex-col space-y-3">
+                                          <Icon name={value.icon} size={28} className="text-brand-accent" />
+                                          <h3 className="text-xl font-heading font-semibold text-white">{value.title}</h3>
+                                          <p className="text-gray-400 text-sm leading-relaxed">{value.description}</p>
+                                      </div>
+                                  ))}
+                              </div>
+
+                              <div className="mt-8 text-center text-sm text-gray-400">
+                                  <p>週30〜40時間稼働で迅速レスポンス。要件定義の整理からご相談ください。</p>
+                              </div>
+                          </div>
+                      </section>
 
                         {/* Contact Section - 変更点2: フォームを削除し、CTAボタンに変更 */}
                         <section id="お問い合わせ" className="py-20">
